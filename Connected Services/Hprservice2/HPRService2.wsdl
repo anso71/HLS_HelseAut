@@ -1,0 +1,2809 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.nhn.no/reg/HPRv2" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HPRService2" targetNamespace="http://schemas.nhn.no/reg/HPRv2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IHPR2Service_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <http:BasicAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsam:Addressing>
+          <wsp:Policy>
+            <wsam:AnonymousResponses />
+          </wsp:Policy>
+        </wsam:Addressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IHPR2Service_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:SslTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:BootstrapPolicy>
+                  <wsp:Policy>
+                    <sp:SignedParts>
+                      <sp:Body />
+                      <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                    <sp:EncryptedParts>
+                      <sp:Body />
+                    </sp:EncryptedParts>
+                    <sp:TransportBinding>
+                      <wsp:Policy>
+                        <sp:TransportToken>
+                          <wsp:Policy>
+                            <msf:SslTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy" />
+                          </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                          <wsp:Policy>
+                            <sp:Basic256 />
+                          </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                          <wsp:Policy>
+                            <sp:Strict />
+                          </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp />
+                      </wsp:Policy>
+                    </sp:TransportBinding>
+                    <sp:SignedSupportingTokens>
+                      <wsp:Policy>
+                        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                          <wsp:Policy>
+                            <sp:WssUsernameToken10 />
+                          </wsp:Policy>
+                        </sp:UsernameToken>
+                      </wsp:Policy>
+                    </sp:SignedSupportingTokens>
+                    <sp:Wss11>
+                      <wsp:Policy />
+                    </sp:Wss11>
+                    <sp:Trust10>
+                      <wsp:Policy>
+                        <sp:MustSupportIssuedTokens />
+                        <sp:RequireClientEntropy />
+                        <sp:RequireServerEntropy />
+                      </wsp:Policy>
+                    </sp:Trust10>
+                  </wsp:Policy>
+                </sp:BootstrapPolicy>
+              </wsp:Policy>
+            </sp:SecureConversationToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust10>
+        <wsam:Addressing>
+          <wsp:Policy>
+            <wsam:AnonymousResponses />
+          </wsp:Policy>
+        </wsam:Addressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_IHPR2Service_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <http:BasicAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://schemas.nhn.no/reg/HPRv2/Imports">
+      <xsd:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd0" namespace="http://schemas.nhn.no/reg/HPRv2" />
+      <xsd:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd3" namespace="http://register.nhn.no/Common" />
+      <xsd:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd2" namespace="http://schemas.nhn.no/reg/Common/no" />
+      <xsd:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IHPR2Service_HentPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentPerson" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPerson_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://register.nhn.no/Common" name="detail" element="q1:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedHistorikk_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonMedHistorikk" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedHistorikk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonMedHistorikkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedHistorikk_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://register.nhn.no/Common" name="detail" element="q2:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedPersonnummer_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonMedPersonnummer" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedPersonnummer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonMedPersonnummerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersonMedPersonnummer_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://register.nhn.no/Common" name="detail" element="q3:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersoner_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersoner" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersoner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentPersonerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentPersoner_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://register.nhn.no/Common" name="detail" element="q4:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk_InputMessage">
+    <wsdl:part name="parameters" element="tns:Søk" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SøkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://register.nhn.no/Common" name="detail" element="q5:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk2_InputMessage">
+    <wsdl:part name="parameters" element="tns:Søk2" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Søk2Response" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Søk2_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://register.nhn.no/Common" name="detail" element="q6:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettPerson" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettPerson_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://register.nhn.no/Common" name="detail" element="q7:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterPerson" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterPerson_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://register.nhn.no/Common" name="detail" element="q8:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettPerson" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettPerson_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://register.nhn.no/Common" name="detail" element="q9:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_ReserverHPRNummerliste_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReserverHPRNummerliste" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_ReserverHPRNummerliste_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReserverHPRNummerlisteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_ReserverHPRNummerliste_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://register.nhn.no/Common" name="detail" element="q10:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_FrigiHPRNummerliste_InputMessage">
+    <wsdl:part name="parameters" element="tns:FrigiHPRNummerliste" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_FrigiHPRNummerliste_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FrigiHPRNummerlisteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_FrigiHPRNummerliste_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://register.nhn.no/Common" name="detail" element="q11:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentReserverteHPRNummer_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentReserverteHPRNummer" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentReserverteHPRNummer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentReserverteHPRNummerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentReserverteHPRNummer_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://register.nhn.no/Common" name="detail" element="q12:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentGodkjenning_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentGodkjenning" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentGodkjenning_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentGodkjenningResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentGodkjenning_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://register.nhn.no/Common" name="detail" element="q13:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettGodkjenning_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettGodkjenning" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettGodkjenning_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettGodkjenningResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettGodkjenning_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://register.nhn.no/Common" name="detail" element="q14:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenning_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterGodkjenning" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenning_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterGodkjenningResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenning_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://register.nhn.no/Common" name="detail" element="q15:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenning_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettGodkjenning" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenning_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettGodkjenningResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenning_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://register.nhn.no/Common" name="detail" element="q16:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilGodkjenningSuspensjonsperiode" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilGodkjenningSuspensjonsperiodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://register.nhn.no/Common" name="detail" element="q17:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilUtdannelsePåGodkjenning_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilUtdannelsePåGodkjenning" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilUtdannelsePåGodkjenning_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilUtdannelsePåGodkjenningResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilUtdannelsePåGodkjenning_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://register.nhn.no/Common" name="detail" element="q18:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentHelsepersonellkategorierSomTillaterTurnus" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentHelsepersonellkategorierSomTillaterTurnusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://register.nhn.no/Common" name="detail" element="q19:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_InputMessage">
+    <wsdl:part name="parameters" element="tns:SettTurnusTillattflaggPåHelsepersonellkategori" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SettTurnusTillattflaggPåHelsepersonellkategoriResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://register.nhn.no/Common" name="detail" element="q20:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettRekvisisjonsrett_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettRekvisisjonsrett" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettRekvisisjonsrett_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettRekvisisjonsrettResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettRekvisisjonsrett_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://register.nhn.no/Common" name="detail" element="q21:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterRekvisisjonsrett_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterRekvisisjonsrett" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterRekvisisjonsrett_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterRekvisisjonsrettResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterRekvisisjonsrett_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://register.nhn.no/Common" name="detail" element="q22:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilRekvisisjonsrettSuspensjonsperiode" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilRekvisisjonsrettSuspensjonsperiodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://register.nhn.no/Common" name="detail" element="q23:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettRekvisisjonsrett_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettRekvisisjonsrett" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettRekvisisjonsrett_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettRekvisisjonsrettResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettRekvisisjonsrett_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://register.nhn.no/Common" name="detail" element="q24:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettSpesialitet_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettSpesialitet" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettSpesialitet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettSpesialitetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettSpesialitet_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://register.nhn.no/Common" name="detail" element="q25:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSpesialitet_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterSpesialitet" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSpesialitet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterSpesialitetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSpesialitet_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://register.nhn.no/Common" name="detail" element="q26:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilSpesialitetSuspensjonsperiode" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilSpesialitetSuspensjonsperiodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://register.nhn.no/Common" name="detail" element="q27:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSpesialitet_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettSpesialitet" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSpesialitet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettSpesialitetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSpesialitet_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://register.nhn.no/Common" name="detail" element="q28:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettTilleggskompetanse_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettTilleggskompetanse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettTilleggskompetanse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettTilleggskompetanseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettTilleggskompetanse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://register.nhn.no/Common" name="detail" element="q29:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterTilleggskompetanse_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterTilleggskompetanse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterTilleggskompetanse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterTilleggskompetanseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterTilleggskompetanse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://register.nhn.no/Common" name="detail" element="q30:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettTilleggskompetanse_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettTilleggskompetanse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettTilleggskompetanse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettTilleggskompetanseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettTilleggskompetanse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q31="http://register.nhn.no/Common" name="detail" element="q31:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdannelse_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettUtdannelse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdannelse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettUtdannelseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdannelse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q32="http://register.nhn.no/Common" name="detail" element="q32:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdannelse_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterUtdannelse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdannelse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterUtdannelseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdannelse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q33="http://register.nhn.no/Common" name="detail" element="q33:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdannelse_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettUtdannelse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdannelse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettUtdannelseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdannelse_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q34="http://register.nhn.no/Common" name="detail" element="q34:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentUtdanningsinstitusjoner_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentUtdanningsinstitusjoner" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentUtdanningsinstitusjoner_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentUtdanningsinstitusjonerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentUtdanningsinstitusjoner_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q35="http://register.nhn.no/Common" name="detail" element="q35:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdanningsinstitusjon_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettUtdanningsinstitusjon" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdanningsinstitusjon_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpprettUtdanningsinstitusjonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OpprettUtdanningsinstitusjon_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q36="http://register.nhn.no/Common" name="detail" element="q36:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdanningsinstitusjon_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterUtdanningsinstitusjon" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdanningsinstitusjon_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterUtdanningsinstitusjonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterUtdanningsinstitusjon_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q37="http://register.nhn.no/Common" name="detail" element="q37:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdanningsinstitusjon_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettUtdanningsinstitusjon" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdanningsinstitusjon_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettUtdanningsinstitusjonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettUtdanningsinstitusjon_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q38="http://register.nhn.no/Common" name="detail" element="q38:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilAlternativId_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilAlternativId" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilAlternativId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilAlternativIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilAlternativId_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q39="http://register.nhn.no/Common" name="detail" element="q39:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterAlternativId_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterAlternativId" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterAlternativId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterAlternativIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterAlternativId_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q40="http://register.nhn.no/Common" name="detail" element="q40:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettAlternativId_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettAlternativId" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettAlternativId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettAlternativIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettAlternativId_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q41="http://register.nhn.no/Common" name="detail" element="q41:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSuspensjonsperiode_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterSuspensjonsperiode" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSuspensjonsperiode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterSuspensjonsperiodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterSuspensjonsperiode_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q42="http://register.nhn.no/Common" name="detail" element="q42:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSuspensjonsperiode_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettSuspensjonsperiode" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSuspensjonsperiode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettSuspensjonsperiodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettSuspensjonsperiode_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q43="http://register.nhn.no/Common" name="detail" element="q43:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningVilkår_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilGodkjenningVilkår" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningVilkår_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeggTilGodkjenningVilkårResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_LeggTilGodkjenningVilkår_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q44="http://register.nhn.no/Common" name="detail" element="q44:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenningVilkår_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlettGodkjenningVilkår" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenningVilkår_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlettGodkjenningVilkårResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlettGodkjenningVilkår_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q45="http://register.nhn.no/Common" name="detail" element="q45:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenningVilkår_InputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterGodkjenningVilkår" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenningVilkår_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OppdaterGodkjenningVilkårResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_OppdaterGodkjenningVilkår_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q46="http://register.nhn.no/Common" name="detail" element="q46:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentEndringerForPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentEndringerForPerson" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentEndringerForPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentEndringerForPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentEndringerForPerson_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q47="http://register.nhn.no/Common" name="detail" element="q47:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagretSøk_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentLagretSøk" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagretSøk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentLagretSøkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagretSøk_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q48="http://register.nhn.no/Common" name="detail" element="q48:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagredeSøk_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentLagredeSøk" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagredeSøk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentLagredeSøkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentLagredeSøk_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q49="http://register.nhn.no/Common" name="detail" element="q49:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Ping_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Ping_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_Ping_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q50="http://register.nhn.no/Common" name="detail" element="q50:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentRegisterEndringer_InputMessage">
+    <wsdl:part name="parameters" element="tns:HentRegisterEndringer" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentRegisterEndringer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HentRegisterEndringerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_HentRegisterEndringer_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q51="http://register.nhn.no/Common" name="detail" element="q51:GenericFault" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlåSammen_InputMessage">
+    <wsdl:part name="parameters" element="tns:SlåSammen" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlåSammen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlåSammenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHPR2Service_SlåSammen_GenericFaultFault_FaultMessage">
+    <wsdl:part xmlns:q52="http://register.nhn.no/Common" name="detail" element="q52:GenericFault" />
+  </wsdl:message>
+  <wsdl:portType name="IHPR2Service">
+    <wsdl:operation name="HentPerson">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPerson" message="tns:IHPR2Service_HentPerson_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonResponse" message="tns:IHPR2Service_HentPerson_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentPerson_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedHistorikk">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikk" message="tns:IHPR2Service_HentPersonMedHistorikk_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikkResponse" message="tns:IHPR2Service_HentPersonMedHistorikk_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikkGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentPersonMedHistorikk_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedPersonnummer">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummer" message="tns:IHPR2Service_HentPersonMedPersonnummer_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummerResponse" message="tns:IHPR2Service_HentPersonMedPersonnummer_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummerGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentPersonMedPersonnummer_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentPersoner">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersoner" message="tns:IHPR2Service_HentPersoner_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonerResponse" message="tns:IHPR2Service_HentPersoner_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonerGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentPersoner_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Søk">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk" message="tns:IHPR2Service_Søk_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SøkResponse" message="tns:IHPR2Service_Søk_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SøkGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_Søk_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Søk2">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2" message="tns:IHPR2Service_Søk2_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2Response" message="tns:IHPR2Service_Søk2_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2GenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_Søk2_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettPerson">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPerson" message="tns:IHPR2Service_OpprettPerson_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPersonResponse" message="tns:IHPR2Service_OpprettPerson_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPersonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettPerson_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterPerson">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPerson" message="tns:IHPR2Service_OppdaterPerson_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPersonResponse" message="tns:IHPR2Service_OppdaterPerson_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPersonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterPerson_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettPerson">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPerson" message="tns:IHPR2Service_SlettPerson_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPersonResponse" message="tns:IHPR2Service_SlettPerson_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPersonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettPerson_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReserverHPRNummerliste">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerliste" message="tns:IHPR2Service_ReserverHPRNummerliste_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerlisteResponse" message="tns:IHPR2Service_ReserverHPRNummerliste_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerlisteGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_ReserverHPRNummerliste_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FrigiHPRNummerliste">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerliste" message="tns:IHPR2Service_FrigiHPRNummerliste_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerlisteResponse" message="tns:IHPR2Service_FrigiHPRNummerliste_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerlisteGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_FrigiHPRNummerliste_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentReserverteHPRNummer">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummer" message="tns:IHPR2Service_HentReserverteHPRNummer_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummerResponse" message="tns:IHPR2Service_HentReserverteHPRNummer_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummerGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentReserverteHPRNummer_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentGodkjenning">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenning" message="tns:IHPR2Service_HentGodkjenning_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenningResponse" message="tns:IHPR2Service_HentGodkjenning_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenningGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentGodkjenning_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettGodkjenning">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenning" message="tns:IHPR2Service_OpprettGodkjenning_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenningResponse" message="tns:IHPR2Service_OpprettGodkjenning_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenningGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettGodkjenning_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenning">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenning" message="tns:IHPR2Service_OppdaterGodkjenning_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningResponse" message="tns:IHPR2Service_OppdaterGodkjenning_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterGodkjenning_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenning">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenning" message="tns:IHPR2Service_SlettGodkjenning_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningResponse" message="tns:IHPR2Service_SlettGodkjenning_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettGodkjenning_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningSuspensjonsperiode">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiode" message="tns:IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiodeResponse" message="tns:IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiodeGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilGodkjenningSuspensjonsperiode_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilUtdannelsePåGodkjenning">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenning" message="tns:IHPR2Service_LeggTilUtdannelsePåGodkjenning_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenningResponse" message="tns:IHPR2Service_LeggTilUtdannelsePåGodkjenning_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenningGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilUtdannelsePåGodkjenning_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentHelsepersonellkategorierSomTillaterTurnus">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnus" message="tns:IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnusResponse" message="tns:IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnusGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentHelsepersonellkategorierSomTillaterTurnus_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SettTurnusTillattflaggPåHelsepersonellkategori">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategori" message="tns:IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategoriResponse" message="tns:IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategoriGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SettTurnusTillattflaggPåHelsepersonellkategori_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettRekvisisjonsrett">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrett" message="tns:IHPR2Service_OpprettRekvisisjonsrett_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrettResponse" message="tns:IHPR2Service_OpprettRekvisisjonsrett_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrettGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettRekvisisjonsrett_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterRekvisisjonsrett">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrett" message="tns:IHPR2Service_OppdaterRekvisisjonsrett_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrettResponse" message="tns:IHPR2Service_OppdaterRekvisisjonsrett_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrettGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterRekvisisjonsrett_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilRekvisisjonsrettSuspensjonsperiode">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiode" message="tns:IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiodeResponse" message="tns:IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiodeGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilRekvisisjonsrettSuspensjonsperiode_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettRekvisisjonsrett">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrett" message="tns:IHPR2Service_SlettRekvisisjonsrett_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrettResponse" message="tns:IHPR2Service_SlettRekvisisjonsrett_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrettGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettRekvisisjonsrett_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettSpesialitet">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitet" message="tns:IHPR2Service_OpprettSpesialitet_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitetResponse" message="tns:IHPR2Service_OpprettSpesialitet_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitetGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettSpesialitet_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSpesialitet">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitet" message="tns:IHPR2Service_OppdaterSpesialitet_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitetResponse" message="tns:IHPR2Service_OppdaterSpesialitet_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitetGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterSpesialitet_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilSpesialitetSuspensjonsperiode">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiode" message="tns:IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiodeResponse" message="tns:IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiodeGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilSpesialitetSuspensjonsperiode_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettSpesialitet">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitet" message="tns:IHPR2Service_SlettSpesialitet_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitetResponse" message="tns:IHPR2Service_SlettSpesialitet_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitetGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettSpesialitet_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettTilleggskompetanse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanse" message="tns:IHPR2Service_OpprettTilleggskompetanse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanseResponse" message="tns:IHPR2Service_OpprettTilleggskompetanse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettTilleggskompetanse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterTilleggskompetanse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanse" message="tns:IHPR2Service_OppdaterTilleggskompetanse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanseResponse" message="tns:IHPR2Service_OppdaterTilleggskompetanse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterTilleggskompetanse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettTilleggskompetanse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanse" message="tns:IHPR2Service_SlettTilleggskompetanse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanseResponse" message="tns:IHPR2Service_SlettTilleggskompetanse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettTilleggskompetanse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdannelse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelse" message="tns:IHPR2Service_OpprettUtdannelse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelseResponse" message="tns:IHPR2Service_OpprettUtdannelse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettUtdannelse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdannelse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelse" message="tns:IHPR2Service_OppdaterUtdannelse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelseResponse" message="tns:IHPR2Service_OppdaterUtdannelse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterUtdannelse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdannelse">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelse" message="tns:IHPR2Service_SlettUtdannelse_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelseResponse" message="tns:IHPR2Service_SlettUtdannelse_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelseGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettUtdannelse_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentUtdanningsinstitusjoner">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjoner" message="tns:IHPR2Service_HentUtdanningsinstitusjoner_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjonerResponse" message="tns:IHPR2Service_HentUtdanningsinstitusjoner_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjonerGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentUtdanningsinstitusjoner_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdanningsinstitusjon">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjon" message="tns:IHPR2Service_OpprettUtdanningsinstitusjon_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjonResponse" message="tns:IHPR2Service_OpprettUtdanningsinstitusjon_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OpprettUtdanningsinstitusjon_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdanningsinstitusjon">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjon" message="tns:IHPR2Service_OppdaterUtdanningsinstitusjon_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjonResponse" message="tns:IHPR2Service_OppdaterUtdanningsinstitusjon_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterUtdanningsinstitusjon_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdanningsinstitusjon">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjon" message="tns:IHPR2Service_SlettUtdanningsinstitusjon_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjonResponse" message="tns:IHPR2Service_SlettUtdanningsinstitusjon_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettUtdanningsinstitusjon_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilAlternativId">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativId" message="tns:IHPR2Service_LeggTilAlternativId_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativIdResponse" message="tns:IHPR2Service_LeggTilAlternativId_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativIdGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilAlternativId_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterAlternativId">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativId" message="tns:IHPR2Service_OppdaterAlternativId_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativIdResponse" message="tns:IHPR2Service_OppdaterAlternativId_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativIdGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterAlternativId_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettAlternativId">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativId" message="tns:IHPR2Service_SlettAlternativId_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativIdResponse" message="tns:IHPR2Service_SlettAlternativId_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativIdGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettAlternativId_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSuspensjonsperiode">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiode" message="tns:IHPR2Service_OppdaterSuspensjonsperiode_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiodeResponse" message="tns:IHPR2Service_OppdaterSuspensjonsperiode_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiodeGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterSuspensjonsperiode_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettSuspensjonsperiode">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiode" message="tns:IHPR2Service_SlettSuspensjonsperiode_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiodeResponse" message="tns:IHPR2Service_SlettSuspensjonsperiode_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiodeGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettSuspensjonsperiode_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningVilkår">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkår" message="tns:IHPR2Service_LeggTilGodkjenningVilkår_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkårResponse" message="tns:IHPR2Service_LeggTilGodkjenningVilkår_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkårGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_LeggTilGodkjenningVilkår_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenningVilkår">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkår" message="tns:IHPR2Service_SlettGodkjenningVilkår_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkårResponse" message="tns:IHPR2Service_SlettGodkjenningVilkår_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkårGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlettGodkjenningVilkår_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenningVilkår">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkår" message="tns:IHPR2Service_OppdaterGodkjenningVilkår_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkårResponse" message="tns:IHPR2Service_OppdaterGodkjenningVilkår_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkårGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_OppdaterGodkjenningVilkår_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentEndringerForPerson">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPerson" message="tns:IHPR2Service_HentEndringerForPerson_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPersonResponse" message="tns:IHPR2Service_HentEndringerForPerson_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPersonGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentEndringerForPerson_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentLagretSøk">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøk" message="tns:IHPR2Service_HentLagretSøk_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøkResponse" message="tns:IHPR2Service_HentLagretSøk_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøkGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentLagretSøk_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentLagredeSøk">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøk" message="tns:IHPR2Service_HentLagredeSøk_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøkResponse" message="tns:IHPR2Service_HentLagredeSøk_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøkGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentLagredeSøk_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Ping" message="tns:IHPR2Service_Ping_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/PingResponse" message="tns:IHPR2Service_Ping_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/PingGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_Ping_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HentRegisterEndringer">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringer" message="tns:IHPR2Service_HentRegisterEndringer_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringerResponse" message="tns:IHPR2Service_HentRegisterEndringer_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringerGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_HentRegisterEndringer_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SlåSammen">
+      <wsdl:input wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammen" message="tns:IHPR2Service_SlåSammen_InputMessage" />
+      <wsdl:output wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammenResponse" message="tns:IHPR2Service_SlåSammen_OutputMessage" />
+      <wsdl:fault wsam:Action="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammenGenericFaultFault" name="GenericFaultFault" message="tns:IHPR2Service_SlåSammen_GenericFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IHPR2Service" type="tns:IHPR2Service">
+    <wsp:PolicyReference URI="#WSHttpBinding_IHPR2Service_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HentPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedHistorikk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedPersonnummer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersoner">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersoner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk2">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReserverHPRNummerliste">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="FrigiHPRNummerliste">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentReserverteHPRNummer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilUtdannelsePåGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentHelsepersonellkategorierSomTillaterTurnus">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SettTurnusTillattflaggPåHelsepersonellkategori">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategori" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilRekvisisjonsrettSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilSpesialitetSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentUtdanningsinstitusjoner">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjoner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentEndringerForPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagretSøk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagredeSøk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentRegisterEndringer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlåSammen">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IHPR2Service" type="tns:IHPR2Service">
+    <wsp:PolicyReference URI="#NetTcpBinding_IHPR2Service_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="HentPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedHistorikk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedPersonnummer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersoner">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersoner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk2">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReserverHPRNummerliste">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="FrigiHPRNummerliste">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentReserverteHPRNummer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilUtdannelsePåGodkjenning">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentHelsepersonellkategorierSomTillaterTurnus">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SettTurnusTillattflaggPåHelsepersonellkategori">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategori" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilRekvisisjonsrettSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettRekvisisjonsrett">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilSpesialitetSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSpesialitet">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettTilleggskompetanse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdannelse">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentUtdanningsinstitusjoner">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjoner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdanningsinstitusjon">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettAlternativId">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSuspensjonsperiode">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenningVilkår">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentEndringerForPerson">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagretSøk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagredeSøk">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentRegisterEndringer">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlåSammen">
+      <soap12:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap12:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IHPR2Service" type="tns:IHPR2Service">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IHPR2Service_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HentPerson">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedHistorikk">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedHistorikk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersonMedPersonnummer">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersonMedPersonnummer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentPersoner">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentPersoner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Søk2">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Søk2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettPerson">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterPerson">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettPerson">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReserverHPRNummerliste">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/ReserverHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="FrigiHPRNummerliste">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/FrigiHPRNummerliste" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentReserverteHPRNummer">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentReserverteHPRNummer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentGodkjenning">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentGodkjenning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettGodkjenning">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenning">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenning">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningSuspensjonsperiode">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilUtdannelsePåGodkjenning">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilUtdannelsePåGodkjenning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentHelsepersonellkategorierSomTillaterTurnus">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentHelsepersonellkategorierSomTillaterTurnus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SettTurnusTillattflaggPåHelsepersonellkategori">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SettTurnusTillattflaggPåHelsepersonellkategori" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettRekvisisjonsrett">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterRekvisisjonsrett">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilRekvisisjonsrettSuspensjonsperiode">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilRekvisisjonsrettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettRekvisisjonsrett">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettRekvisisjonsrett" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettSpesialitet">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSpesialitet">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSpesialitet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilSpesialitetSuspensjonsperiode">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilSpesialitetSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSpesialitet">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSpesialitet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettTilleggskompetanse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterTilleggskompetanse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettTilleggskompetanse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettTilleggskompetanse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdannelse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdannelse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdannelse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdannelse">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdannelse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentUtdanningsinstitusjoner">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentUtdanningsinstitusjoner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OpprettUtdanningsinstitusjon">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OpprettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterUtdanningsinstitusjon">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettUtdanningsinstitusjon">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettUtdanningsinstitusjon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilAlternativId">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilAlternativId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterAlternativId">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterAlternativId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettAlternativId">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettAlternativId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterSuspensjonsperiode">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettSuspensjonsperiode">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettSuspensjonsperiode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="LeggTilGodkjenningVilkår">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/LeggTilGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlettGodkjenningVilkår">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlettGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="OppdaterGodkjenningVilkår">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/OppdaterGodkjenningVilkår" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentEndringerForPerson">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentEndringerForPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagretSøk">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagretSøk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentLagredeSøk">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentLagredeSøk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="HentRegisterEndringer">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/HentRegisterEndringer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SlåSammen">
+      <soap:operation soapAction="http://schemas.nhn.no/reg/HPRv2/IHPR2Service/SlåSammen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GenericFaultFault">
+        <soap:fault use="literal" name="GenericFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HPRService2">
+    <wsdl:port name="WSHttpBinding_IHPR2Service" binding="tns:WSHttpBinding_IHPR2Service">
+      <soap12:address location="https://register-web.test.nhn.no/v2/HPR" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://register-web.test.nhn.no/v2/HPR</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IHPR2Service" binding="tns:NetTcpBinding_IHPR2Service">
+      <soap12:address location="net.tcp://ws-web.test.nhn.no:9876/v2/HPR" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://ws-web.test.nhn.no:9876/v2/HPR</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>ws-web.test.nhn.no</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IHPR2Service" binding="tns:BasicHttpBinding_IHPR2Service">
+      <soap:address location="https://register-web.test.nhn.no/v2/HPR/Basic" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

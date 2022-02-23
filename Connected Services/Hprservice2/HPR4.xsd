@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.nhn.no/reg/HPRv2" elementFormDefault="qualified" targetNamespace="http://schemas.nhn.no/reg/HPRv2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd2" namespace="http://schemas.nhn.no/reg/Common/no" />
+  <xs:import schemaLocation="https://register-web.test.nhn.no/v2/HPR?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="HentPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+        <xs:element minOccurs="0" name="påTidspunkt" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentPersonResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AlternativeIder" nillable="true" type="tns:ArrayOfAlternativId" />
+      <xs:element minOccurs="0" name="Dødsdato" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErstattetAvHprNummer" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Etternavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fornavn" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="FysiskeAdresser" nillable="true" type="q1:ArrayOfFysiskAdresse" />
+      <xs:element minOccurs="0" name="Fødselsdato" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Godkjenninger" nillable="true" type="tns:ArrayOfGodkjenning" />
+      <xs:element minOccurs="0" name="HPRNummer" type="xs:int" />
+      <xs:element xmlns:q2="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Kjønn" nillable="true" type="q2:Kode" />
+      <xs:element minOccurs="0" name="ManglerNIN" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mellomnavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SistOppdatert" type="xs:dateTime" />
+      <xs:element xmlns:q3="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Statsborgerskap" nillable="true" type="q3:Kode" />
+      <xs:element minOccurs="0" name="Utdannelser" nillable="true" type="tns:ArrayOfUtdannelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="tns:Person" />
+  <xs:complexType name="ArrayOfAlternativId">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AlternativId" nillable="true" type="tns:AlternativId" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAlternativId" nillable="true" type="tns:ArrayOfAlternativId" />
+  <xs:complexType name="AlternativId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q4="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q4:Kode" />
+      <xs:element minOccurs="0" name="Verdi" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AlternativId" nillable="true" type="tns:AlternativId" />
+  <xs:complexType name="ArrayOfGodkjenning">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Godkjenning" nillable="true" type="tns:Godkjenning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGodkjenning" nillable="true" type="tns:ArrayOfGodkjenning" />
+  <xs:complexType name="Godkjenning">
+    <xs:sequence>
+      <xs:element xmlns:q5="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Autorisasjon" nillable="true" type="q5:Kode" />
+      <xs:element xmlns:q6="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="AvsluttetStatus" nillable="true" type="q6:Kode" />
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GodkjentTurnus" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q7="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Gyldig" nillable="true" type="q7:Periode" />
+      <xs:element xmlns:q8="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Helsepersonellkategori" nillable="true" type="q8:Kode" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q9="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="KonvertertFraLand" nillable="true" type="q9:Kode" />
+      <xs:element minOccurs="0" name="Rekvisisjonsretter" nillable="true" type="tns:ArrayOfRekvisisjonsrett" />
+      <xs:element minOccurs="0" name="Spesialiteter" nillable="true" type="tns:ArrayOfSpesialitet" />
+      <xs:element minOccurs="0" name="Suspensjonsperioder" nillable="true" type="tns:ArrayOfSuspensjonsperiode" />
+      <xs:element minOccurs="0" name="Tilleggskompetanser" nillable="true" type="tns:ArrayOfTilleggskompetanse" />
+      <xs:element minOccurs="0" name="Utdannelser" nillable="true" type="tns:ArrayOfUtdannelse" />
+      <xs:element minOccurs="0" name="Vilkår" nillable="true" type="tns:ArrayOfVilkår" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Godkjenning" nillable="true" type="tns:Godkjenning" />
+  <xs:complexType name="ArrayOfRekvisisjonsrett">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rekvisisjonsrett" nillable="true" type="tns:Rekvisisjonsrett" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRekvisisjonsrett" nillable="true" type="tns:ArrayOfRekvisisjonsrett" />
+  <xs:complexType name="Rekvisisjonsrett">
+    <xs:sequence>
+      <xs:element xmlns:q10="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="AvsluttetStatus" nillable="true" type="q10:Kode" />
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element xmlns:q11="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Gyldig" nillable="true" type="q11:Periode" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Suspensjonsperioder" nillable="true" type="tns:ArrayOfSuspensjonsperiode" />
+      <xs:element xmlns:q12="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q12:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Rekvisisjonsrett" nillable="true" type="tns:Rekvisisjonsrett" />
+  <xs:complexType name="ArrayOfSuspensjonsperiode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Suspensjonsperiode" nillable="true" type="tns:Suspensjonsperiode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSuspensjonsperiode" nillable="true" type="tns:ArrayOfSuspensjonsperiode" />
+  <xs:complexType name="Suspensjonsperiode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q13="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Periode" nillable="true" type="q13:Periode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Suspensjonsperiode" nillable="true" type="tns:Suspensjonsperiode" />
+  <xs:complexType name="ArrayOfSpesialitet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Spesialitet" nillable="true" type="tns:Spesialitet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSpesialitet" nillable="true" type="tns:ArrayOfSpesialitet" />
+  <xs:complexType name="Spesialitet">
+    <xs:sequence>
+      <xs:element xmlns:q14="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="AvsluttetStatus" nillable="true" type="q14:Kode" />
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element xmlns:q15="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Gyldig" nillable="true" type="q15:Periode" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q16="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="KonvertertFraLand" nillable="true" type="q16:Kode" />
+      <xs:element minOccurs="0" name="Suspensjonsperioder" nillable="true" type="tns:ArrayOfSuspensjonsperiode" />
+      <xs:element xmlns:q17="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q17:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Spesialitet" nillable="true" type="tns:Spesialitet" />
+  <xs:complexType name="ArrayOfTilleggskompetanse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tilleggskompetanse" nillable="true" type="tns:Tilleggskompetanse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTilleggskompetanse" nillable="true" type="tns:ArrayOfTilleggskompetanse" />
+  <xs:complexType name="Tilleggskompetanse">
+    <xs:sequence>
+      <xs:element xmlns:q18="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="AvsluttetStatus" nillable="true" type="q18:Kode" />
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element xmlns:q19="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Gyldig" nillable="true" type="q19:Periode" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q20="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q20:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Tilleggskompetanse" nillable="true" type="tns:Tilleggskompetanse" />
+  <xs:complexType name="ArrayOfUtdannelse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Utdannelse" nillable="true" type="tns:Utdannelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtdannelse" nillable="true" type="tns:ArrayOfUtdannelse" />
+  <xs:complexType name="Utdannelse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Institution" nillable="true" type="tns:Utdanningsinstitusjon" />
+      <xs:element xmlns:q21="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Land" nillable="true" type="q21:Kode" />
+      <xs:element xmlns:q22="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q22:Kode" />
+      <xs:element minOccurs="0" name="Vitnemålsdato" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Utdannelse" nillable="true" type="tns:Utdannelse" />
+  <xs:complexType name="Utdanningsinstitusjon">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element xmlns:q23="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="FysiskeAdresser" nillable="true" type="q23:ArrayOfFysiskAdresse" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Navn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Organisasjonsnummer" nillable="true" type="xs:int" />
+      <xs:element xmlns:q24="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q24:Kode" />
+      <xs:element minOccurs="0" name="Utdanningsinstitusjonshistorikk" nillable="true" type="tns:ArrayOfUtdanningsinstitusjonshistorikk" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Utdanningsinstitusjon" nillable="true" type="tns:Utdanningsinstitusjon" />
+  <xs:complexType name="ArrayOfUtdanningsinstitusjonshistorikk">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Utdanningsinstitusjonshistorikk" nillable="true" type="tns:Utdanningsinstitusjonshistorikk" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtdanningsinstitusjonshistorikk" nillable="true" type="tns:ArrayOfUtdanningsinstitusjonshistorikk" />
+  <xs:complexType name="Utdanningsinstitusjonshistorikk">
+    <xs:sequence>
+      <xs:element xmlns:q25="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Gyldig" nillable="true" type="q25:Periode" />
+      <xs:element minOccurs="0" name="Navn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Organisasjonsnummer" nillable="true" type="xs:int" />
+      <xs:element xmlns:q26="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q26:Kode" />
+      <xs:element minOccurs="0" name="YtterligereInformasjon" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Utdanningsinstitusjonshistorikk" nillable="true" type="tns:Utdanningsinstitusjonshistorikk" />
+  <xs:complexType name="ArrayOfVilkår">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Vilkår" nillable="true" type="tns:Vilkår" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVilkår" nillable="true" type="tns:ArrayOfVilkår" />
+  <xs:complexType name="Vilkår">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fritekst" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element xmlns:q27="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Type" nillable="true" type="q27:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Vilkår" nillable="true" type="tns:Vilkår" />
+  <xs:element name="HentPersonMedHistorikk">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersonMedHistorikkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentPersonMedHistorikkResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersonMedPersonnummer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="personNummer" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="påTidspunkt" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersonMedPersonnummerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentPersonMedPersonnummerResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersoner">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="hprNummer" nillable="true" type="q28:ArrayOfint" />
+        <xs:element minOccurs="0" name="medAdresser" type="xs:boolean" />
+        <xs:element minOccurs="0" name="påTidspunkt" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentPersonerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentPersonerResult" nillable="true" type="tns:ArrayOfPerson" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Person" nillable="true" type="tns:Person" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPerson" nillable="true" type="tns:ArrayOfPerson" />
+  <xs:element name="Søk">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="search" nillable="true" type="tns:Søkeparametre" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Søkeparametre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Adresse" nillable="true" type="xs:string" />
+      <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AlternativeIder" nillable="true" type="q29:ArrayOfstring" />
+      <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Autorisasjoner" nillable="true" type="q30:ArrayOfstring" />
+      <xs:element minOccurs="0" name="AvsluttetGodkjenningStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AvsluttetRekvisisjonsrettStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AvsluttetSpesialitetStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AvsluttetTilleggskompetanseStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Dødsdato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q31="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="DødsdatoPeriode" nillable="true" type="q31:Periode" />
+      <xs:element minOccurs="0" name="Etternavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fornavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullTekst" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fødselsdato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q32="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="FødselsdatoPeriode" nillable="true" type="q32:Periode" />
+      <xs:element minOccurs="0" name="GodkjenningFraDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q33="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="GodkjenningFraPeriode" nillable="true" type="q33:Periode" />
+      <xs:element minOccurs="0" name="GodkjenningTilDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q34="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="GodkjenningTilPeriode" nillable="true" type="q34:Periode" />
+      <xs:element minOccurs="0" name="GodkjenningType" nillable="true" type="xs:string" />
+      <xs:element xmlns:q35="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="GodkjentTurnus" nillable="true" type="q35:Periode" />
+      <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Helsepersonellkategorier" nillable="true" type="q36:ArrayOfstring" />
+      <xs:element minOccurs="0" name="HprNummer" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Kjønn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KunBasisData" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mellomnavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Navn" nillable="true" type="xs:string" />
+      <xs:element xmlns:q37="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="Periode" nillable="true" type="q37:Periode" />
+      <xs:element minOccurs="0" name="PredefinertSøkId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RekvisisjonsrettFraDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q38="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="RekvisisjonsrettFraPeriode" nillable="true" type="q38:Periode" />
+      <xs:element xmlns:q39="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="RekvisisjonsrettPeriode" nillable="true" type="q39:Periode" />
+      <xs:element minOccurs="0" name="RekvisisjonsrettTilDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q40="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="RekvisisjonsrettTilPeriode" nillable="true" type="q40:Periode" />
+      <xs:element xmlns:q41="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Rekvisisjonsretter" nillable="true" type="q41:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ResultaterPerSide" type="xs:int" />
+      <xs:element minOccurs="0" name="Side" type="xs:int" />
+      <xs:element xmlns:q42="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="SistEndretPeriode" nillable="true" type="q42:Periode" />
+      <xs:element minOccurs="0" name="SpesialitetFraDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q43="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="SpesialitetFraPeriode" nillable="true" type="q43:Periode" />
+      <xs:element xmlns:q44="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="SpesialitetPeriode" nillable="true" type="q44:Periode" />
+      <xs:element minOccurs="0" name="SpesialitetTilDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q45="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="SpesialitetTilPeriode" nillable="true" type="q45:Periode" />
+      <xs:element xmlns:q46="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Spesialiteter" nillable="true" type="q46:ArrayOfstring" />
+      <xs:element xmlns:q47="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Statsborgerskap" nillable="true" type="q47:ArrayOfstring" />
+      <xs:element minOccurs="0" name="SuspansjonsDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q48="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="SuspansjonsPeriode" nillable="true" type="q48:Periode" />
+      <xs:element minOccurs="0" name="TilleggskompetanseFraDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q49="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="TilleggskompetanseFraPeriode" nillable="true" type="q49:Periode" />
+      <xs:element xmlns:q50="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="TilleggskompetansePeriode" nillable="true" type="q50:Periode" />
+      <xs:element minOccurs="0" name="TilleggskompetanseTilDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q51="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="TilleggskompetanseTilPeriode" nillable="true" type="q51:Periode" />
+      <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tilleggskompetanser" nillable="true" type="q52:ArrayOfstring" />
+      <xs:element minOccurs="0" name="UtdanningsNivå" nillable="true" type="xs:string" />
+      <xs:element xmlns:q53="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UtdanningsinstutisjonsIder" nillable="true" type="q53:ArrayOfint" />
+      <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Utdanningsland" nillable="true" type="q54:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Vilkår" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VitnemålsDato" nillable="true" type="xs:dateTime" />
+      <xs:element xmlns:q55="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="VitnemålsDatoPeriode" nillable="true" type="q55:Periode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Søkeparametre" nillable="true" type="tns:Søkeparametre" />
+  <xs:element name="SøkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SøkResult" nillable="true" type="tns:ArrayOfPerson" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Søk2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="search" nillable="true" type="tns:Søkeparametre" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Søk2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Søk2Result" nillable="true" type="tns:PaginertResultatsett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="PaginertResultatsett">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Personer" nillable="true" type="tns:ArrayOfPerson" />
+      <xs:element minOccurs="0" name="ResultaterPerSide" type="xs:int" />
+      <xs:element minOccurs="0" name="ResultaterTotalt" type="xs:int" />
+      <xs:element minOccurs="0" name="Side" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaginertResultatsett" nillable="true" type="tns:PaginertResultatsett" />
+  <xs:element name="OpprettPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="person" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettPersonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettPersonResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="person" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterPersonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterPersonResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettPersonResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReserverHPRNummerliste">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="antall" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReserverHPRNummerlisteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ReserverHPRNummerlisteResult" nillable="true" type="q56:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FrigiHPRNummerliste">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="hprNummer" nillable="true" type="q57:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FrigiHPRNummerlisteResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentReserverteHPRNummer">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentReserverteHPRNummerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HentReserverteHPRNummerResult" nillable="true" type="q58:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentGodkjenning">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="påTidspunkt" nillable="true" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentGodkjenningResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentGodkjenningResult" nillable="true" type="tns:Godkjenning" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettGodkjenning">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+        <xs:element minOccurs="0" name="godkjenning" nillable="true" type="tns:Godkjenning" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettGodkjenningResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettGodkjenningResult" nillable="true" type="tns:Godkjenning" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterGodkjenning">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenning" nillable="true" type="tns:Godkjenning" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterGodkjenningResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterGodkjenningResult" nillable="true" type="tns:Godkjenning" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettGodkjenning">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettGodkjenningResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilGodkjenningSuspensjonsperiode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="suspensjonsPeriode" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilGodkjenningSuspensjonsperiodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LeggTilGodkjenningSuspensjonsperiodeResult" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilUtdannelsePåGodkjenning">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="utdannelseId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilUtdannelsePåGodkjenningResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentHelsepersonellkategorierSomTillaterTurnus">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentHelsepersonellkategorierSomTillaterTurnusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.nhn.no/reg/Common/no" minOccurs="0" name="HentHelsepersonellkategorierSomTillaterTurnusResult" nillable="true" type="q59:ArrayOfKode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SettTurnusTillattflaggPåHelsepersonellkategori">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="kategori" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="flagg" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SettTurnusTillattflaggPåHelsepersonellkategoriResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettRekvisisjonsrett">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="rekvisisjonsrett" nillable="true" type="tns:Rekvisisjonsrett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettRekvisisjonsrettResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettRekvisisjonsrettResult" nillable="true" type="tns:Rekvisisjonsrett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterRekvisisjonsrett">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rekvisisjonsrett" nillable="true" type="tns:Rekvisisjonsrett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterRekvisisjonsrettResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterRekvisisjonsrettResult" nillable="true" type="tns:Rekvisisjonsrett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilRekvisisjonsrettSuspensjonsperiode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rekvisisjonsrettId" type="xs:int" />
+        <xs:element minOccurs="0" name="suspensjonsperiode" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilRekvisisjonsrettSuspensjonsperiodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LeggTilRekvisisjonsrettSuspensjonsperiodeResult" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettRekvisisjonsrett">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rekvisisjonsrettId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettRekvisisjonsrettResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettSpesialitet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="spesialitet" nillable="true" type="tns:Spesialitet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettSpesialitetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettSpesialitetResult" nillable="true" type="tns:Spesialitet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterSpesialitet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="spesialitet" nillable="true" type="tns:Spesialitet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterSpesialitetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterSpesialitetResult" nillable="true" type="tns:Spesialitet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilSpesialitetSuspensjonsperiode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="spesialitetsId" type="xs:int" />
+        <xs:element minOccurs="0" name="suspensjonsperiode" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilSpesialitetSuspensjonsperiodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LeggTilSpesialitetSuspensjonsperiodeResult" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettSpesialitet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="spesialitetId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettSpesialitetResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettTilleggskompetanse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="tilleggskompetanse" nillable="true" type="tns:Tilleggskompetanse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettTilleggskompetanseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettTilleggskompetanseResult" nillable="true" type="tns:Tilleggskompetanse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterTilleggskompetanse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tilleggskompetanse" nillable="true" type="tns:Tilleggskompetanse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterTilleggskompetanseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterTilleggskompetanseResult" nillable="true" type="tns:Tilleggskompetanse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettTilleggskompetanse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tilleggskompetanseId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettTilleggskompetanseResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettUtdannelse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+        <xs:element minOccurs="0" name="utdannelse" nillable="true" type="tns:Utdannelse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettUtdannelseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettUtdannelseResult" nillable="true" type="tns:Utdannelse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterUtdannelse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="utdannelse" nillable="true" type="tns:Utdannelse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterUtdannelseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterUtdannelseResult" nillable="true" type="tns:Utdannelse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettUtdannelse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="utdannelseId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettUtdannelseResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentUtdanningsinstitusjoner">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentUtdanningsinstitusjonerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentUtdanningsinstitusjonerResult" nillable="true" type="tns:ArrayOfUtdanningsinstitusjon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfUtdanningsinstitusjon">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Utdanningsinstitusjon" nillable="true" type="tns:Utdanningsinstitusjon" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUtdanningsinstitusjon" nillable="true" type="tns:ArrayOfUtdanningsinstitusjon" />
+  <xs:element name="OpprettUtdanningsinstitusjon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="utdanningsinstitusjon" nillable="true" type="tns:Utdanningsinstitusjon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpprettUtdanningsinstitusjonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OpprettUtdanningsinstitusjonResult" nillable="true" type="tns:Utdanningsinstitusjon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterUtdanningsinstitusjon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="utdanningsinstitusjon" nillable="true" type="tns:Utdanningsinstitusjon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterUtdanningsinstitusjonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterUtdanningsinstitusjonResult" nillable="true" type="tns:Utdanningsinstitusjon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettUtdanningsinstitusjon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="utdanningsinstitusjonId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettUtdanningsinstitusjonResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilAlternativId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+        <xs:element minOccurs="0" name="alternativId" nillable="true" type="tns:AlternativId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilAlternativIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LeggTilAlternativIdResult" nillable="true" type="tns:AlternativId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterAlternativId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alternativId" nillable="true" type="tns:AlternativId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterAlternativIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterAlternativIdResult" nillable="true" type="tns:AlternativId" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettAlternativId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alternativIdId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettAlternativIdResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterSuspensjonsperiode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="suspensjonsperiode" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterSuspensjonsperiodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterSuspensjonsperiodeResult" nillable="true" type="tns:Suspensjonsperiode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettSuspensjonsperiode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="suspensjonsperiodeId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettSuspensjonsperiodeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilGodkjenningVilkår">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="godkjenningId" type="xs:int" />
+        <xs:element minOccurs="0" name="vilkår" nillable="true" type="tns:Vilkår" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeggTilGodkjenningVilkårResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LeggTilGodkjenningVilkårResult" nillable="true" type="tns:Vilkår" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettGodkjenningVilkår">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="vilkårId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlettGodkjenningVilkårResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterGodkjenningVilkår">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="vilkår" nillable="true" type="tns:Vilkår" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OppdaterGodkjenningVilkårResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="OppdaterGodkjenningVilkårResult" nillable="true" type="tns:Vilkår" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentEndringerForPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprNummer" type="xs:int" />
+        <xs:element minOccurs="0" name="fra" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentEndringerForPersonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentEndringerForPersonResult" nillable="true" type="tns:ArrayOfEndringslogginnslag" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfEndringslogginnslag">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Endringslogginnslag" nillable="true" type="tns:Endringslogginnslag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEndringslogginnslag" nillable="true" type="tns:ArrayOfEndringslogginnslag" />
+  <xs:complexType name="Endringslogginnslag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrukersVirksomhet" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndredeEntiteter" nillable="true" type="tns:ArrayOfEndretEntitet" />
+      <xs:element minOccurs="0" name="FaktiskBruker" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Sporingsgruppe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sporingsveri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tidspunkt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Tjenestebruker" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Endringslogginnslag" nillable="true" type="tns:Endringslogginnslag" />
+  <xs:complexType name="ArrayOfEndretEntitet">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EndretEntitet" nillable="true" type="tns:EndretEntitet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEndretEntitet" nillable="true" type="tns:ArrayOfEndretEntitet" />
+  <xs:complexType name="EndretEntitet">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndredeVerdier" nillable="true" type="tns:ArrayOfEndretVerdi" />
+      <xs:element minOccurs="0" name="EndringsType" nillable="true" type="xs:string" />
+      <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntitetsIder" nillable="true" type="q60:ArrayOfstring" />
+      <xs:element minOccurs="0" name="EntitetsType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EndretEntitet" nillable="true" type="tns:EndretEntitet" />
+  <xs:complexType name="ArrayOfEndretVerdi">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EndretVerdi" nillable="true" type="tns:EndretVerdi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEndretVerdi" nillable="true" type="tns:ArrayOfEndretVerdi" />
+  <xs:complexType name="EndretVerdi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GammelVerdi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="NyVerdi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VerdiNavn" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EndretVerdi" nillable="true" type="tns:EndretVerdi" />
+  <xs:element name="HentLagretSøk">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentLagretSøkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentLagretSøkResult" nillable="true" type="tns:EksportData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="EksportData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Format" nillable="true" type="tns:EksportFormat" />
+      <xs:element minOccurs="0" name="Parametre" nillable="true" type="tns:Søkeparametre" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EksportData" nillable="true" type="tns:EksportData" />
+  <xs:complexType name="EksportFormat">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Versjon" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EksportFormat" nillable="true" type="tns:EksportFormat" />
+  <xs:element name="HentLagredeSøk">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentLagredeSøkResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentLagredeSøkResult" nillable="true" type="tns:ArrayOfLagretSøk" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfLagretSøk">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LagretSøk" nillable="true" type="tns:LagretSøk" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLagretSøk" nillable="true" type="tns:ArrayOfLagretSøk" />
+  <xs:complexType name="LagretSøk">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Eier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EksportData" nillable="true" type="tns:EksportData" />
+      <xs:element minOccurs="0" name="Navn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TilknyttetOrganisasjon" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LagretSøk" nillable="true" type="tns:LagretSøk" />
+  <xs:element name="Ping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="requestId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PingResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentRegisterEndringer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fra" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="til" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="side" type="xs:int" />
+        <xs:element minOccurs="0" name="resultaterPerSide" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HentRegisterEndringerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HentRegisterEndringerResult" nillable="true" type="tns:PaginertResultatsett" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlåSammen">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hprDestinasjon" type="xs:int" />
+        <xs:element minOccurs="0" name="hprUtgår" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SlåSammenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SlåSammenResult" nillable="true" type="tns:Person" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

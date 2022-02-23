@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLS_HelseAut", "HLS_HelseAut.csproj", "{AB60194D-6A87-486B-A87D-E946746B278C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB60194D-6A87-486B-A87D-E946746B278C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB60194D-6A87-486B-A87D-E946746B278C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB60194D-6A87-486B-A87D-E946746B278C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB60194D-6A87-486B-A87D-E946746B278C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F68D6974-54C2-44A8-BC63-9973E2B650AE}
+	EndGlobalSection
+EndGlobal

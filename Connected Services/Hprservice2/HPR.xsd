@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.nhn.no/reg/Common/no" elementFormDefault="qualified" targetNamespace="http://schemas.nhn.no/reg/Common/no" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Kode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Aktiv" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Beskrivelse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Kodegruppenavn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OID" type="xs:int" />
+      <xs:element minOccurs="0" name="Verdi" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Kode" nillable="true" type="tns:Kode" />
+  <xs:complexType name="ArrayOfFysiskAdresse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FysiskAdresse" nillable="true" type="tns:FysiskAdresse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFysiskAdresse" nillable="true" type="tns:ArrayOfFysiskAdresse" />
+  <xs:complexType name="FysiskAdresse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Arvet" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Beskrivelse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Gateadresse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Land" nillable="true" type="tns:Kode" />
+      <xs:element minOccurs="0" name="Postboks" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Postkode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Poststed" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="tns:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FysiskAdresse" nillable="true" type="tns:FysiskAdresse" />
+  <xs:complexType name="Periode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fra" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Til" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Periode" nillable="true" type="tns:Periode" />
+  <xs:complexType name="ArrayOfKode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Kode" nillable="true" type="tns:Kode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfKode" nillable="true" type="tns:ArrayOfKode" />
+</xs:schema>

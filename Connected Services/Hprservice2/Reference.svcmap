@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="88830eb2-d208-4d01-b055-1fb32e50dda8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address=" https://register-web.test.nhn.no/v2/HPR?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HPR.xsd" MetadataType="Schema" ID="6da47f9f-8967-4004-a67d-b3422b1897f9" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?xsd=xsd2" />
+    <MetadataFile FileName="HPRService2.wsdl" MetadataType="Wsdl" ID="e4f1f483-cac5-4cb5-a896-c2d09872b65b" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?wsdl" />
+    <MetadataFile FileName="HPR1.xsd" MetadataType="Schema" ID="f1a91b3e-122d-49f7-b86f-34cccea93d62" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?xsd=xsd1" />
+    <MetadataFile FileName="HPR2.xsd" MetadataType="Schema" ID="4e026576-f480-495e-89df-656cd98c74d2" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?xsd=xsd4" />
+    <MetadataFile FileName="HPR3.xsd" MetadataType="Schema" ID="ee285b86-3fda-4707-8f82-8fce0c839d73" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?xsd=xsd3" />
+    <MetadataFile FileName="HPR4.xsd" MetadataType="Schema" ID="10a80af6-28da-4077-b7f2-f394b8acc5df" SourceId="1" SourceUrl="https://register-web.test.nhn.no/v2/HPR?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
