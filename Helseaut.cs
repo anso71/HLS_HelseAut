@@ -58,7 +58,7 @@ namespace HLS_HelseAut
                 CurrentContext.Database.Read(sqlname, users);
                 foreach (DataRow user in users.Rows)
                 {
-                    var social_sec = user["social_sec"].ToString();  //"29068636661";
+                    var social_sec = user["social_sec"].ToString();  
          
                     Task.Delay(200);
                     try
